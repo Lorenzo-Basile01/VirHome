@@ -24,6 +24,15 @@ public class VirHome {
         }
         return virhome;
     }
+
+    public Map<String, AreaVigilata> getElencoAree() {
+        return elencoAree;
+    }
+
+    public AreaVigilata getAreaCorrente() {
+        return areaCorrente;
+    }
+
     public void loadAree(){
         AreaVigilata bagno = new AreaVigilata("Bagno1");
         AreaVigilata salotto = new AreaVigilata("Salotto1");

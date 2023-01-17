@@ -8,7 +8,7 @@ public abstract class Dispositivo {
     protected boolean attivo;
 
     public Dispositivo(String area) {
-        this.codiceDispositivo = counter++;
+        this.codiceDispositivo = ++counter;
         this.area = area;
         this.attivo = false;
     }

@@ -34,10 +34,10 @@ public class AreaVigilata {
 
     @Override
     public String toString() {
-        return "AreaVigilata{" +
+        return "AreaVigilata{"+
                 "codiceArea='" + codiceArea + '\'' +
-                ", elencoDispositivi=" + elencoDispositivi +
-                '}';
+                "elencoDispositivi=" + elencoDispositivi +
+                "}\n";
     }
 
     public void inserisciDispositivo(char tipoDispositivo)throws Exception{
