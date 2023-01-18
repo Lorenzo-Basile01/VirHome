@@ -32,20 +32,15 @@ public class AccessFrame extends JFrame{
 
         settings();
         eventHandler();
-
-
     }
 
     private void settings(){
         //textField1.setSize(100,30);
         //textField1.setMargin(new java.awt.Insets(0,20,0,20));
         //add(accediButton);
-
-
     }
 
     private void eventHandler(){
-
         accediButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,8 +61,9 @@ public class AccessFrame extends JFrame{
         System.out.println(textField1.getText());
         System.out.println(passwordField1.getText());
 
-        database.verifyUser(Integer.parseInt(passwordField1.getText()), textField1.getText());
-
+        database.verifyUser(Integer.parseInt(passwordField1.getText()),textField1.getText());
+        //verifico la condizione e in caso apro la finestra altrimenti genero un messaggio di errore
+        //new menu(virhome);
 
     }
 

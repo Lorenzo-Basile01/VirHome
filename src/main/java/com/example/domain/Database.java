@@ -4,18 +4,21 @@ import java.sql.*;
 
 public class Database{
 
-    final String DB_URL = "jdbc:mysql://localhost:3306/VirHome";
+    final String DB_URL = "jdbc:mysql://localhost:3306/virhome";
     final String USERNAME = "root";
-    final String PASSWORD = "0000";
+    final String PASSWORD = "";
     Connection con;
 
     public Database() {
         try {
-            con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD); //driveManager usata per avare connessione con db
+            System.out.println("connessione stabilita");
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        System.out.println("database creato");
     }
 
     public void addUserDatabase(String nome, int codice, String domanda, int telefono){
@@ -25,7 +28,7 @@ public class Database{
     public void verifyUser(int codice, String nome){
         try {
             Statement stm = con.createStatement();
-            String query = "SELECT codice FROM User Where nome=" + nome;
+            String query = "SELECT codice FROM User where nome = "+ nome;
             PreparedStatement preparedStatement = con.prepareStatement(query);
             System.out.println(preparedStatement.executeQuery());
 

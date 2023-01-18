@@ -20,7 +20,9 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="32aeeb2b-dada-42a4-9d3a-4ab5b74a808c" object-ref="schemas/virhome/tables/user" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="32aeeb2b-dada-42a4-9d3a-4ab5b74a808c" dataset="virhome.user" active-filter-id="EMPTY_FILTER" />
