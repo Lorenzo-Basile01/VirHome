@@ -18,6 +18,7 @@ public class Database{
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+
         }
     }
 
