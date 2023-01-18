@@ -22,26 +22,6 @@ public class Database{
         }
     }
 
-    public boolean addUserDatabase(String nome, int codice, String domanda, int telefono){
-        try {
-            Statement stm = con.createStatement();
-            String query = "INSERT into user (nome, codice, domandaSicurezza, telefono)"+"values(?,?,?,?)";
-            PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setString(1,nome);
-            preparedStatement.setInt(2,codice);
-            preparedStatement.setString(3,domanda);
-            preparedStatement.setInt(4,telefono);
-            int n = preparedStatement.executeUpdate();
-            if(n>0){
-                return true;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
     public boolean verifyUser(int codice, String nome){
         try {
             Statement stm = con.createStatement();
@@ -61,6 +41,28 @@ public class Database{
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean addUserDatabase(String nome, int codice, int confermaCod, String domanda, int telefono){
+        if(codice == confermaCod) {
+            try {
+                Statement stm = con.createStatement();
+                String query = "INSERT into user (nome, codice, domandaSicurezza, telefono)" + "values(?,?,?,?)";
+                PreparedStatement preparedStatement = con.prepareStatement(query);
+                preparedStatement.setString(1, nome);
+                preparedStatement.setInt(2, codice);
+                preparedStatement.setString(3, domanda);
+                preparedStatement.setInt(4, telefono);
+                int n = preparedStatement.executeUpdate();
+                if (n > 0) {
+                    return true;
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }

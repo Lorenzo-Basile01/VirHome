@@ -16,6 +16,7 @@ public class RegistratiFrame extends JFrame{
     private JPasswordField codiceField;
     private JPasswordField confermaCodiceField;
     private JPanel registerPanel;
+    private JLabel error;
 
     private Database database;
 
@@ -44,10 +45,14 @@ public class RegistratiFrame extends JFrame{
     }
 
     private void registratiActionPerformed(ActionEvent e){
-        if (database.addUserDatabase(nomeField.getText(), Integer.parseInt(codiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText())) == true)
+        if (database.addUserDatabase(nomeField.getText(), Integer.parseInt(codiceField.getText()),Integer.parseInt(confermaCodiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText())) == true)
         {
             System.out.println("registrazione avvenuta");
             new MenuFrame(virhome);
+            setVisible(false);
+        }
+        else{
+            error.setText("password diverse");
         }
 
     }
