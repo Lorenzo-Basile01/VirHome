@@ -9,12 +9,13 @@ import java.awt.event.ActionListener;
 
 public class AccessFrame extends JFrame{
 
-    private JPanel panel1;
+    private JPanel accesPanel;
     private JButton accediButton;
     private JButton registratiButton;
     private JLabel title;
     private JPasswordField passwordField1;
     private JTextField textField1;
+    private JLabel error;
 
     private VirHome virHome;
     private Database database;
@@ -25,7 +26,7 @@ public class AccessFrame extends JFrame{
         database = new Database();
 
         setTitle("VirHome access");
-        setContentPane(panel1);
+        setContentPane(accesPanel);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -51,22 +52,26 @@ public class AccessFrame extends JFrame{
         registratiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                registratiActionPerformed(e);
             }
         });
-
     }
 
     private void accediActionPerformed(ActionEvent e){
-        System.out.println(textField1.getText());
-        System.out.println(passwordField1.getText());
 
-        database.verifyUser(Integer.parseInt(passwordField1.getText()),textField1.getText());
-        //verifico la condizione e in caso apro la finestra altrimenti genero un messaggio di errore
-        //new menu(virhome);
-
+        if(database.verifyUser(Integer.parseInt(passwordField1.getText()),textField1.getText()) == true){
+            new MenuFrame(virHome);
+            database.closeConnection();
+            setVisible(false);
+        }else{
+            error.setText("nome e/o codice errato");
+        }
     }
 
+    private void registratiActionPerformed(ActionEvent e){
+        new RegistratiFrame(virHome);
+        setVisible(false);
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("AccessFrame");

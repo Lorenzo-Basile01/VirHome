@@ -13,7 +13,7 @@ public class Database{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD); //driveManager usata per avare connessione con db
-            System.out.println("connessione stabilita");
+            System.out.println("connessione database stabilita");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -22,21 +22,54 @@ public class Database{
         }
     }
 
-    public void addUserDatabase(String nome, int codice, String domanda, int telefono){
-
-    }
-
-    public void verifyUser(int codice, String nome){
+    public boolean addUserDatabase(String nome, int codice, String domanda, int telefono){
         try {
             Statement stm = con.createStatement();
-            String query = "SELECT codice FROM User where nome = "+ nome;
+            String query = "INSERT into user (nome, codice, domandaSicurezza, telefono)"+"values(?,?,?,?)";
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            System.out.println(preparedStatement.executeQuery());
+            preparedStatement.setString(1,nome);
+            preparedStatement.setInt(2,codice);
+            preparedStatement.setString(3,domanda);
+            preparedStatement.setInt(4,telefono);
+            int n = preparedStatement.executeUpdate();
+            if(n>0){
+                return true;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
+    }
 
+    public boolean verifyUser(int codice, String nome){
+        try {
+            Statement stm = con.createStatement();
+            String query = "SELECT codice from user where nome = ? ";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1,nome);
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next() == true) {
+
+                if (Integer.parseInt(rs.getString(1)) == codice) {
+                    System.out.println("accesso eseguito");
+                    return true;
+                } else {
+                    System.out.println("codice errato");
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public void closeConnection(){
+        try {
+            con.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
