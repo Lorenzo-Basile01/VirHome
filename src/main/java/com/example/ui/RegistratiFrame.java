@@ -45,14 +45,19 @@ public class RegistratiFrame extends JFrame{
     }
 
     private void registratiActionPerformed(ActionEvent e){
-        if (database.addUserDatabase(nomeField.getText(), Integer.parseInt(codiceField.getText()),Integer.parseInt(confermaCodiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText())) == true)
-        {
-            System.out.println("registrazione avvenuta");
-            new MenuFrame(virhome);
-            setVisible(false);
+
+        System.out.println(codiceField.getText().length());
+
+        if(codiceField.getText() == confermaCodiceField.getText() && codiceField.getText().length() > 4){
+
+            if (database.addUserDatabase(nomeField.getText(), Integer.parseInt(codiceField.getText()),Integer.parseInt(confermaCodiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText())) == true) {
+                System.out.println("registrazione avvenuta");
+                new MenuFrame(virhome);
+                setVisible(false);
+            }
         }
         else{
-            error.setText("password diverse");
+            error.setText("password diverse o lunghezza minore di 4");
         }
 
     }

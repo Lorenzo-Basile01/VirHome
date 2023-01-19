@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Database{
 
-    final String DB_URL = "jdbc:mysql://localhost:3306/virhome";
+    final String DB_URL = "jdbc:mysql://localhost:3306/VirHome";
     final String USERNAME = "root";
     final String PASSWORD = "";
     Connection con;
@@ -18,7 +18,6 @@ public class Database{
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
-
         }
     }
 
