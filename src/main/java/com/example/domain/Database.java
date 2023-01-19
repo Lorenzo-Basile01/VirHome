@@ -6,7 +6,7 @@ public class Database{
 
     final String DB_URL = "jdbc:mysql://localhost:3306/VirHome";
     final String USERNAME = "root";
-    final String PASSWORD = "";
+    final String PASSWORD = "0000";
     Connection con;
 
     public Database() {
