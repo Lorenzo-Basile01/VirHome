@@ -55,7 +55,7 @@ public class AreaVigilata {
     }
 
     public void confermaInserimento(){
-        if(this.dispositivoCorrente != null){
+        if(this.dispositivoCorrente != null){//get codice dispositivo lo facciamo qua
             elencoDispositivi.put(String.valueOf(this.dispositivoCorrente.getCodiceDispositivo()),this.dispositivoCorrente);
             System.out.println("operazione di inserimento conclusa");
         }

@@ -1,12 +1,14 @@
 package com.example.domain;
 
+import com.sun.jdi.connect.Connector;
+
 import java.sql.*;
 
-public class Database{
+public class Database {
 
-    final String DB_URL = "jdbc:mysql://localhost:3306/VirHome";
+    final String DB_URL = "jdbc:mysql://localhost:3306/virhome";
     final String USERNAME = "root";
-    final String PASSWORD = "12345";
+    final String PASSWORD = "0000";
     Connection con;
 
     public Database() {

@@ -10,11 +10,17 @@ public class Sensore extends Dispositivo{
     }
 
     public Sensore(String area) {
+
         super(area);
+        setSensibilità();
     }
 
     public int getSensibilità() {
         return sensibilità;
+    }
+
+    public void setSensibilità(){
+        this.sensibilità = 5;
     }
 
     public void setSensibilità(int sensibilità) throws Exception{
