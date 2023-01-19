@@ -6,7 +6,7 @@ public class Database{
 
     final String DB_URL = "jdbc:mysql://localhost:3306/VirHome";
     final String USERNAME = "root";
-    final String PASSWORD = "0000";
+    final String PASSWORD = "12345";
     Connection con;
 
     public Database() {
@@ -45,7 +45,6 @@ public class Database{
     }
 
     public boolean addUserDatabase(String nome, int codice, int confermaCod, String domanda, int telefono){
-        if(codice == confermaCod) {
             try {
                 Statement stm = con.createStatement();
                 String query = "INSERT into user (nome, codice, domandaSicurezza, telefono)" + "values(?,?,?,?)";
@@ -62,7 +61,6 @@ public class Database{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
         return false;
     }
     public void closeConnection(){

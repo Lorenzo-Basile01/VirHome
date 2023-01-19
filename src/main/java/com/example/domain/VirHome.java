@@ -11,8 +11,11 @@ public class VirHome {
     private Map<String,AreaVigilata> elencoAree;
     private AreaVigilata areaCorrente;
 
+    private Database database;
+
     private VirHome() {
         this.elencoAree = new HashMap<>();
+        this.database =  new Database();
         loadAree();
     }
 
@@ -43,6 +46,24 @@ public class VirHome {
         System.out.println("caricamento aree completato");
     }
 
+    //ITERAZIONE 1
+    public boolean addUserDatabase(String nome, int codice, int confermaCod, String domanda, int telefono){
+        boolean a = database.addUserDatabase(nome,codice,confermaCod,domanda,telefono);
+        if(a == true){
+            database.closeConnection();
+            System.out.println("connessione chiusa");
+        }
+        return a;
+    }
+
+    public boolean verifyUser(int codice, String nome){
+        boolean a = database.verifyUser(codice,nome);
+        if(a == true){
+            database.closeConnection();
+            System.out.println("connessione chiusa");
+        }
+        return a;
+    }
     public void inserisciDispositivo(String codiceArea, char tipoDispositivo) throws Exception{
 
         AreaVigilata A = elencoAree.get(codiceArea);
@@ -58,5 +79,5 @@ public class VirHome {
         this.areaCorrente.confermaInserimento();
     }
 
-
+    //ITERAZIONE 2
 }

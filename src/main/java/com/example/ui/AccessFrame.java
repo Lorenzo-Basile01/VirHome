@@ -4,6 +4,7 @@ import com.example.domain.Database;
 import com.example.domain.VirHome;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,14 +19,13 @@ public class AccessFrame extends JFrame{
     private JLabel error;
 
     private VirHome virHome;
-    private Database database;
+
 
     public AccessFrame() {
 
         virHome = VirHome.getInstance();
-        database = new Database();
 
-        setTitle("VirHome access");
+        setTitle("Access");
         setContentPane(accesPanel);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -36,9 +36,10 @@ public class AccessFrame extends JFrame{
     }
 
     private void settings(){
-        //textField1.setSize(100,30);
-        //textField1.setMargin(new java.awt.Insets(0,20,0,20));
-        //add(accediButton);
+        Font font = new Font("Magneto",Font.BOLD,20);
+
+        title.setFont(font);
+        title.setForeground(Color.gray);
     }
 
     private void eventHandler(){
@@ -58,12 +59,11 @@ public class AccessFrame extends JFrame{
     }
 
     private void accediActionPerformed(ActionEvent e){
-
-        if(database.verifyUser(Integer.parseInt(passwordField1.getText()),textField1.getText()) == true){
+        if(virHome.verifyUser(Integer.parseInt(passwordField1.getText()),textField1.getText()) == true){
             new MenuFrame(virHome);
-            database.closeConnection();
             setVisible(false);
-        }else{
+        }
+        else{
             error.setText("nome e/o codice errato");
         }
     }
@@ -74,7 +74,6 @@ public class AccessFrame extends JFrame{
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("AccessFrame");
         AccessFrame accessFrame = new AccessFrame();
     }
 }

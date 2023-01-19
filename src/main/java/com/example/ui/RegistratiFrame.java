@@ -17,24 +17,28 @@ public class RegistratiFrame extends JFrame{
     private JPasswordField confermaCodiceField;
     private JPanel registerPanel;
     private JLabel error;
-
-    private Database database;
+    private JLabel titolo;
 
     private VirHome virhome;
 
     public RegistratiFrame(VirHome v)throws HeadlessException {
         this.virhome= v;
-        database = new Database();
 
-        setTitle("registrazione");
+        setTitle("Registration");
         setContentPane(registerPanel);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
+        settings();
         eventHandler();
     }
+     private void settings(){
+         Font font = new Font("Magneto",Font.BOLD,15);
 
+         titolo.setFont(font);
+         titolo.setForeground(Color.gray);
+     }
     private void eventHandler(){
         registratiButton.addActionListener(new ActionListener() {
             @Override
@@ -45,19 +49,16 @@ public class RegistratiFrame extends JFrame{
     }
 
     private void registratiActionPerformed(ActionEvent e){
+        if(Integer.parseInt(codiceField.getText()) == Integer.parseInt(confermaCodiceField.getText()) && codiceField.getText().length() > 4){
 
-        System.out.println(codiceField.getText().length());
-
-        if(codiceField.getText() == confermaCodiceField.getText() && codiceField.getText().length() > 4){
-
-            if (database.addUserDatabase(nomeField.getText(), Integer.parseInt(codiceField.getText()),Integer.parseInt(confermaCodiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText())) == true) {
+            if (virhome.addUserDatabase(nomeField.getText(), Integer.parseInt(codiceField.getText()),Integer.parseInt(confermaCodiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText())) == true) {
                 System.out.println("registrazione avvenuta");
                 new MenuFrame(virhome);
                 setVisible(false);
             }
         }
         else{
-            error.setText("password diverse o lunghezza minore di 4");
+            error.setText("password diverse \no lunghezza minore di 4");
         }
 
     }
