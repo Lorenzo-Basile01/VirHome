@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 public class AccessFrame extends JFrame{
 
     private JPanel accesPanel;
-    private JButton accediButton;
+    private JButton entryButton;
     private JButton registratiButton;
     private JLabel title;
 
@@ -33,17 +33,17 @@ public class AccessFrame extends JFrame{
     }
 
     private void settings(){
-        Font font = new Font("Magneto",Font.BOLD,20);
+        Font font = new Font("Magneto",Font.BOLD,18);
 
         title.setFont(font);
         title.setForeground(Color.gray);
     }
 
     private void eventHandler(){
-        accediButton.addActionListener(new ActionListener() {
+        entryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                accediActionPerformed(e);
+                entryActionPerformed(e);
             }
         });
 
@@ -55,15 +55,9 @@ public class AccessFrame extends JFrame{
         });
     }
 
-    private void accediActionPerformed(ActionEvent e){
+    private void entryActionPerformed(ActionEvent e){
         new MenuFrame(virHome);
         setVisible(false);
-        /*if(virHome.verifyUser(Integer.parseInt(passwordField1.getText()),textField1.getText()) == true){
-
-        }
-        else{
-            error.setText("nome e/o codice errato");
-        }*/
     }
 
     private void registratiActionPerformed(ActionEvent e){

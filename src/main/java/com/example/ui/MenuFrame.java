@@ -39,5 +39,12 @@ public class MenuFrame extends JFrame {
                 new InserisciDispotivoFrame(virhome);
             }
         });
+
+        attivaAntifurtoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AuthenticationFrame(virhome);
+            }
+        });
     }
 }

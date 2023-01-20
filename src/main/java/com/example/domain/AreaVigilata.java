@@ -2,6 +2,7 @@ package com.example.domain;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class AreaVigilata {
 
@@ -59,5 +60,9 @@ public class AreaVigilata {
             elencoDispositivi.put(String.valueOf(this.dispositivoCorrente.getCodiceDispositivo()),this.dispositivoCorrente);
             System.out.println("operazione di inserimento conclusa");
         }
+    }
+
+    public Set<String> getCodiciDispositivi(){
+        return elencoDispositivi.keySet();
     }
 }

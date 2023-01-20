@@ -58,7 +58,7 @@ public class RegistratiFrame extends JFrame{
             }
         }
         else{
-            error.setText("password diverse \no lunghezza minore di 4");
+            error.setText("password diverse o lunghezza minore di 4");
         }
 
     }

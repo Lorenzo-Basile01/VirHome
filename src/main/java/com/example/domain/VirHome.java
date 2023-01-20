@@ -49,21 +49,9 @@ public class VirHome {
     //ITERAZIONE 1
     public boolean addUserDatabase(String nome, int codice, int confermaCod, String domanda, int telefono){
         boolean a = database.addUserDatabase(nome,codice,confermaCod,domanda,telefono);
-        if(a == true){
-            database.closeConnection();
-            System.out.println("connessione chiusa");
-        }
         return a;
     }
 
-    public boolean verifyUser(int codice, String nome){
-        boolean a = database.verifyUser(codice,nome);
-        if(a == true){
-            database.closeConnection();
-            System.out.println("connessione chiusa");
-        }
-        return a;
-    }
     public void inserisciDispositivo(String codiceArea, char tipoDispositivo) throws Exception{
 
         AreaVigilata A = elencoAree.get(codiceArea);
@@ -80,6 +68,27 @@ public class VirHome {
     }
 
     //ITERAZIONE 2
+    public boolean verifyUser(int codice, String nome){
+        boolean a = database.verifyUser(codice,nome);
+        /*if(a == true){
+            database.closeConnection();
+            System.out.println("connessione chiusa");
+        }*/
+        return a;
+    }
 
+    public void attivaAntifurto(){
+        elencoAree.keySet();
+        System.out.println(elencoAree.keySet());
+    }
 
+    public void selezionaArea(String codiceArea){
+         AreaVigilata s = elencoAree.get(codiceArea);
+         s.getCodiciDispositivi();
+
+    }
+
+    public void selezionaDispositivoDaAttivare(){
+
+    }
 }
