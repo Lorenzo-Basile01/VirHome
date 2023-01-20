@@ -78,13 +78,17 @@ public class AttivationFrame extends JFrame {
 
     private void attivaActionPerformed(ActionEvent e){
         textArea1.setText("");
-        boolean attivo = virHome.selezionaDispositivoDaAttivare(Integer.parseInt(selezionaDispositivoBox.getSelectedItem().toString()),selezionaAreaBox.getSelectedItem().toString());
-        if(!attivo){
-            textArea1.append("dispositivo "+selezionaDispositivoBox.getSelectedItem().toString()+" già attivo");
-        }else {
-            selezionaDispositivoBox.removeAllItems();
-            stampaMappa();
-            selezionaDispositivoBox.setEnabled(false);
+        if(selezionaDispositivoBox.getSelectedItem() != null && selezionaAreaBox.getSelectedItem() != null) {
+            boolean attivo = virHome.selezionaDispositivoDaAttivare(Integer.parseInt(selezionaDispositivoBox.getSelectedItem().toString()), selezionaAreaBox.getSelectedItem().toString());
+            if (!attivo) {
+                textArea1.append("Dispositivo " + selezionaDispositivoBox.getSelectedItem().toString() + " già attivo");
+            } else {
+                selezionaDispositivoBox.removeAllItems();
+                stampaMappa();
+                selezionaDispositivoBox.setEnabled(false);
+            }
+        }else{
+            textArea1.append("Nessun Dispostivo da attivare");
         }
     }
 

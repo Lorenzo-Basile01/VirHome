@@ -14,6 +14,7 @@ public class MenuFrame extends JFrame {
     private JButton inserisciDispositivoButton;
     private JButton button1; //questo sarà disarma e passerai d nel costruttore
     private JLabel t;
+    private JButton back;
 
 
     public MenuFrame(VirHome v) throws HeadlessException {
@@ -45,6 +46,14 @@ public class MenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AuthenticationFrame(virhome,'a');
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AccessFrame();
+                setVisible(false);
             }
         });
     }
