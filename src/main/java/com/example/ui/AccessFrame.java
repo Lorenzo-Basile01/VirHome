@@ -14,9 +14,6 @@ public class AccessFrame extends JFrame{
     private JButton accediButton;
     private JButton registratiButton;
     private JLabel title;
-    private JPasswordField passwordField1;
-    private JTextField textField1;
-    private JLabel error;
 
     private VirHome virHome;
 
@@ -59,13 +56,14 @@ public class AccessFrame extends JFrame{
     }
 
     private void accediActionPerformed(ActionEvent e){
-        if(virHome.verifyUser(Integer.parseInt(passwordField1.getText()),textField1.getText()) == true){
-            new MenuFrame(virHome);
-            setVisible(false);
+        new MenuFrame(virHome);
+        setVisible(false);
+        /*if(virHome.verifyUser(Integer.parseInt(passwordField1.getText()),textField1.getText()) == true){
+
         }
         else{
             error.setText("nome e/o codice errato");
-        }
+        }*/
     }
 
     private void registratiActionPerformed(ActionEvent e){
