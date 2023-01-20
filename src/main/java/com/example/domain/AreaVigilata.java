@@ -62,7 +62,14 @@ public class AreaVigilata {
         }
     }
 
-    public Set<String> getCodiciDispositivi(){
-        return elencoDispositivi.keySet();
+    //ITERAZIONE 2
+
+    public boolean selezionaDispositivoDaAttivare(int codiceDispositivo){
+        Dispositivo D = elencoDispositivi.get(String.valueOf(codiceDispositivo));
+        if(!D.isAttivo()){
+            D.setAttivo(true);
+            return true;
+        }
+        return false;
     }
 }

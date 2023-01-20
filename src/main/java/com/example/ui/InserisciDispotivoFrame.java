@@ -15,9 +15,12 @@ public class InserisciDispotivoFrame extends JFrame{
     private JButton inserisciButton;
     private JLabel selection1;
     private JLabel selection2;
+    private JButton menuButton;
 
     public InserisciDispotivoFrame(VirHome v) {
         this.virhome= v;
+        aggiungiAreeAlComboBox();
+
 
         setTitle("Select device");
         setContentPane(inserisciPanel);
@@ -27,6 +30,12 @@ public class InserisciDispotivoFrame extends JFrame{
         confermaInserimentoButton.setEnabled(false);
 
         eventHandler();
+
+    }
+
+    private void aggiungiAreeAlComboBox(){
+        for(String s : virhome.getElencoAree().keySet())
+            areaVig.addItem(s);
     }
 
     private void eventHandler(){
@@ -42,6 +51,10 @@ public class InserisciDispotivoFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 confermaInserimentoActionPerformed(e);
             }
+        });
+        menuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { ritornaAlMenuActionPerformed(e);}
         });
     }
 
@@ -71,4 +84,8 @@ public class InserisciDispotivoFrame extends JFrame{
         confermaInserimentoButton.setEnabled(false);
     }
 
+    private void ritornaAlMenuActionPerformed(ActionEvent e){
+        new MenuFrame(virhome);
+        setVisible(false);
+    }
 }

@@ -3,7 +3,9 @@ package com.example.domain;
 import java.net.SocketOption;
 import java.sql.SQLOutput;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class VirHome {
 
@@ -40,9 +42,11 @@ public class VirHome {
         AreaVigilata bagno = new AreaVigilata("Bagno1");
         AreaVigilata salotto = new AreaVigilata("Salotto1");
         AreaVigilata cucina = new AreaVigilata("Cucina1");
+        AreaVigilata cameretta = new AreaVigilata("Cameretta1");
         this.elencoAree.put("Bagno1", bagno);
         this.elencoAree.put("Salotto1", salotto);
         this.elencoAree.put("Cucina1", cucina);
+        this.elencoAree.put("Cameretta1", cameretta);
         System.out.println("caricamento aree completato");
     }
 
@@ -77,18 +81,19 @@ public class VirHome {
         return a;
     }
 
-    public void attivaAntifurto(){
-        elencoAree.keySet();
-        System.out.println(elencoAree.keySet());
+    public Set<String> attivaAntifurto(){
+        return elencoAree.keySet();
     }
 
-    public void selezionaArea(String codiceArea){
+    public Map<String, Dispositivo> selezionaArea(String codiceArea){
          AreaVigilata s = elencoAree.get(codiceArea);
-         s.getCodiciDispositivi();
-
+         return s.getElencoDispositivi();
+         //ottengo un insieme di dispositivi, non sai ancora quale dei dispositivi vuoi attivare
     }
 
-    public void selezionaDispositivoDaAttivare(){
-
+    public boolean selezionaDispositivoDaAttivare(int codiceDispositivo, String codiceArea){
+        //sai il dispositivo da attivare e in quale area
+        AreaVigilata A = elencoAree.get(codiceArea);
+        return A.selezionaDispositivoDaAttivare(codiceDispositivo);
     }
 }

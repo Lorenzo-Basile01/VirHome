@@ -10,17 +10,30 @@ import java.awt.event.ActionListener;
 public class AuthenticationFrame extends JFrame{
     private JPanel AuthenticationPanel;
     private JTextField nometextField1;
-    private JTextField codicetextField2;
     private JButton autenticatiButton;
+    private JPasswordField codiceTextField;
     private JLabel intro;
     private JLabel nameField;
     private JLabel codiceField;
     private JLabel error;
+    private char gestisci;
 
     private VirHome virHome;
     public AuthenticationFrame(VirHome v) throws HeadlessException {
         this.virHome=v;
-        setTitle("Main");
+        setTitle("Authentication");
+        setContentPane(AuthenticationPanel);
+        setSize(550,400);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+        eventHandler();
+        settings();
+    }
+
+    public AuthenticationFrame(VirHome v, char g) throws HeadlessException {
+        this.virHome=v;
+        this.gestisci = g;
+        setTitle("Authentication");
         setContentPane(AuthenticationPanel);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -45,10 +58,16 @@ public class AuthenticationFrame extends JFrame{
     }
 
     private void authenticationActionPerformed(ActionEvent e){
-        if(virHome.verifyUser(Integer.parseInt(codicetextField2.getText()), nometextField1.getText()) == true){
+        if(virHome.verifyUser(Integer.parseInt(codiceTextField.getText()), nometextField1.getText()) == true){
             System.out.println("autenticazione avventuta");
-            new InserisciDispotivoFrame(virHome); // da cambiare
-            setVisible(false);
+            if(this.gestisci == 'a') {
+                new AttivationFrame(virHome); // da cambiare
+                setVisible(false);
+            }else{
+                //new InserisciDispotivoFrame(virHome);
+                setVisible(false);
+            }
+
         }
         else{
             error.setText("nome e/o codice errato");

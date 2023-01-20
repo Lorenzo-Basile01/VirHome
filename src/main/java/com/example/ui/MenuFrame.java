@@ -12,7 +12,7 @@ public class MenuFrame extends JFrame {
     private JPanel menuPanel;
     private JButton attivaAntifurtoButton;
     private JButton inserisciDispositivoButton;
-    private JButton button1;
+    private JButton button1; //questo sarà disarma e passerai d nel costruttore
     private JLabel t;
 
 
@@ -37,13 +37,14 @@ public class MenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new InserisciDispotivoFrame(virhome);
+                setVisible(false);
             }
         });
 
         attivaAntifurtoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AuthenticationFrame(virhome);
+                new AuthenticationFrame(virhome,'a');
             }
         });
     }
