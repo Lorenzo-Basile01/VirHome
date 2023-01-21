@@ -38,4 +38,10 @@ public class Sensore extends Dispositivo{
                 ", sensibilità=" + sensibilità +
                 '}';
     }
+
+    /* TEMPLEATE GOF
+    @Override
+    protected void doGet(String a) {
+
+    }*/
 }

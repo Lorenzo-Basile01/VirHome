@@ -36,4 +36,15 @@ public abstract class Dispositivo {
     public void setAttivo(boolean attivo) {
         this.attivo = attivo;
     }
+
+    /* TEMPLATE GOF
+    protected abstract void doGet(String a);
+    protected abstract void doSet(String b);
+
+    public void prova(){ metodo che gestisce l'algoritmo che chiama al suo interno un metodo primitivo
+        doGet("ciao");          dichiarato abstract nella superclasse che poi verra implementato dalla sottoclasse
+        doSet("ciao");
+    }
+
+    }*/
 }

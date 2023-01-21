@@ -19,7 +19,7 @@ public class AccessFrame extends JFrame{
 
 
     public AccessFrame() {
-
+        //creo nel main per facilitare il client
         virHome = VirHome.getInstance();
 
         setTitle("Access");
