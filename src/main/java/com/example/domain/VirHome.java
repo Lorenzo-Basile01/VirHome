@@ -72,6 +72,7 @@ public class VirHome {
     }
 
     //ITERAZIONE 2
+
     public boolean verifyUser(int codice, String nome){
         boolean a = database.verifyUser(codice,nome);
         /*if(a == true){

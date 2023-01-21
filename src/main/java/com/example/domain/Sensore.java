@@ -10,7 +10,6 @@ public class Sensore extends Dispositivo{
     }
 
     public Sensore(String area) {
-
         super(area);
         setSensibilità();
     }
