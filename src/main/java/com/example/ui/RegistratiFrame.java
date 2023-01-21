@@ -1,6 +1,5 @@
 package com.example.ui;
 
-import com.example.domain.Database;
 import com.example.domain.VirHome;
 
 import javax.swing.*;
@@ -18,6 +17,7 @@ public class RegistratiFrame extends JFrame{
     private JPanel registerPanel;
     private JLabel error;
     private JLabel titolo;
+    private JButton back;
 
     private VirHome virhome;
 
@@ -46,10 +46,20 @@ public class RegistratiFrame extends JFrame{
                 registratiActionPerformed(e);
             }
         });
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AccessFrame();
+                setVisible(false);
+            }
+        });
     }
 
     private void registratiActionPerformed(ActionEvent e){
-        if(Integer.parseInt(codiceField.getText()) == Integer.parseInt(confermaCodiceField.getText()) && codiceField.getText().length() > 4){
+        if(nomeField.getText().equals("") || codiceField.getText().equals("") || confermaCodiceField.getText().equals("") || domandaField.getText().equals("") || telefonoField.getText().equals("")){
+            error.setText("compilare tutti i campi");
+        }
+        else if(Integer.parseInt(codiceField.getText()) == Integer.parseInt(confermaCodiceField.getText()) && codiceField.getText().length() > 4){
 
             if (virhome.addUserDatabase(nomeField.getText(), Integer.parseInt(codiceField.getText()),Integer.parseInt(confermaCodiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText())) == true) {
                 System.out.println("registrazione avvenuta");

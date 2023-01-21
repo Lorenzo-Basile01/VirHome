@@ -8,7 +8,7 @@ public class Database {
 
     final String DB_URL = "jdbc:mysql://localhost:3306/virhome";
     final String USERNAME = "root";
-    final String PASSWORD = "0000";
+    final String PASSWORD = "12345";
     Connection con;
 
     public Database() {
@@ -54,7 +54,6 @@ public class Database {
             preparedStatement.setString(1,nome);
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next() == true) {
-                System.out.println(rs.getString(1));
                 if (rs.getString(1).equals(domanda)) {
                     System.out.println("accesso eseguito");
                     return true;
@@ -95,6 +94,4 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
-
-
 }
