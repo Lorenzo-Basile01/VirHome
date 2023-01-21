@@ -46,6 +46,29 @@ public class Database {
         return false;
     }
 
+    public boolean verifyQuestion(String nome, String domanda){
+        try {
+            Statement stm = con.createStatement();
+            String query = "SELECT domandaSicurezza from user where nome = ? ";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1,nome);
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next() == true) {
+                System.out.println(rs.getString(1));
+                if (rs.getString(1).equals(domanda)) {
+                    System.out.println("accesso eseguito");
+                    return true;
+                } else {
+                    System.out.println("domanda errata");
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean addUserDatabase(String nome, int codice, int confermaCod, String domanda, int telefono){
             try {
                 Statement stm = con.createStatement();

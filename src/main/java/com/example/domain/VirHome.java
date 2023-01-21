@@ -82,6 +82,10 @@ public class VirHome {
         return a;
     }
 
+    public boolean verifyQuestion(String nome, String domanda){
+        return database.verifyQuestion(nome, domanda);
+    }
+
     public Set<String> attivaAntifurto(){
         return elencoAree.keySet();
     }
@@ -97,4 +101,5 @@ public class VirHome {
         AreaVigilata A = elencoAree.get(codiceArea);
         return A.selezionaDispositivoDaAttivare(codiceDispositivo);
     }
+
 }

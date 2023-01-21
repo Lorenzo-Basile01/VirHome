@@ -46,6 +46,7 @@ public class MenuFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AuthenticationFrame(virhome,'a');
+                setVisible(false);
             }
         });
 

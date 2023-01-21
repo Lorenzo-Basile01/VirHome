@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AuthenticationFrame extends JFrame{
+
+    private static int count = 0;
+
     private JPanel AuthenticationPanel;
     private JTextField nometextField1;
     private JButton autenticatiButton;
@@ -16,6 +19,8 @@ public class AuthenticationFrame extends JFrame{
     private JLabel nameField;
     private JLabel codiceField;
     private JLabel error;
+    private JTextField domandaTextField;
+    private JLabel domandaLabel;
     private char gestisci;
 
     private VirHome virHome;
@@ -37,6 +42,8 @@ public class AuthenticationFrame extends JFrame{
         setContentPane(AuthenticationPanel);
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        domandaTextField.setEnabled(false);
+        //domandaLabel.setVisible(false);
         setVisible(true);
         eventHandler();
         settings();
@@ -58,19 +65,34 @@ public class AuthenticationFrame extends JFrame{
     }
 
     private void authenticationActionPerformed(ActionEvent e){
-        if(virHome.verifyUser(Integer.parseInt(codiceTextField.getText()), nometextField1.getText()) == true){
-            System.out.println("autenticazione avventuta");
-            if(this.gestisci == 'a') {
-                new AttivationFrame(virHome); // da cambiare
-                setVisible(false);
-            }else{
-                //new InserisciDispotivoFrame(virHome);
+        if((codiceTextField.getText().equals("") || nometextField1.getText().equals("")) && codiceTextField.isEnabled()){
+            error.setText("Compilare tutti i campi");
+        }
+        else if(count > 1) {
+            domandaTextField.setEnabled(true);
+            //domandaLabel.setVisible(false);
+            codiceTextField.setText("");
+            codiceTextField.setEnabled(false);
+            if (virHome.verifyQuestion(nometextField1.getText(), domandaTextField.getText())) {
+                new AttivationFrame(virHome);
                 setVisible(false);
             }
+        }else {
 
-        }
-        else{
-            error.setText("nome e/o codice errato");
+            if (virHome.verifyUser(Integer.parseInt(codiceTextField.getText()), nometextField1.getText()) == true) {
+                System.out.println("autenticazione avventuta");
+                if (this.gestisci == 'a') {
+                    new AttivationFrame(virHome);
+                    setVisible(false);
+                } else {
+                    //new InserisciDispotivoFrame(virHome); metti disarma poi
+                    setVisible(false);
+                }
+
+            } else {
+                error.setText("nome e/o codice errato");
+                count++;
+            }
         }
     }
 
