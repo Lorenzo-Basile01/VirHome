@@ -12,9 +12,10 @@ public class MenuFrame extends JFrame {
     private JPanel menuPanel;
     private JButton attivaAntifurtoButton;
     private JButton inserisciDispositivoButton;
-    private JButton button1; //questo sarà disarma e passerai d nel costruttore
+    private JButton disarmaAntifurtoButton; //questo sarà disarma e passerai d nel costruttore
     private JLabel t;
     private JButton back;
+    private JButton visualizzaDispositiviAttiviButton;
 
 
     public MenuFrame(VirHome v) throws HeadlessException {
