@@ -8,7 +8,7 @@ public class Database {
 
     final String DB_URL = "jdbc:mysql://localhost:3306/virhome";
     final String USERNAME = "root";
-    final String PASSWORD = "12345";
+    final String PASSWORD = "0000";
     Connection con;
 
     public Database() {
@@ -21,6 +21,7 @@ public class Database {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public boolean verifyUser(int codice, String nome){
@@ -31,6 +32,7 @@ public class Database {
             preparedStatement.setString(1,nome);
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next() == true) {
+
 
                 if (Integer.parseInt(rs.getString(1)) == codice) {
                     System.out.println("accesso eseguito");

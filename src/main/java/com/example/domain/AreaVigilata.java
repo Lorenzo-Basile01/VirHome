@@ -64,12 +64,12 @@ public class AreaVigilata {
 
     //ITERAZIONE 2
 
-    public boolean selezionaDispositivoDaAttivare(int codiceDispositivo){
+    public Dispositivo selezionaDispositivoDaAttivare(int codiceDispositivo){
         Dispositivo D = elencoDispositivi.get(String.valueOf(codiceDispositivo));
         if(!D.isAttivo()){
             D.setAttivo(true);
-            return true;
+            return D;
         }
-        return false;
+        return null;
     }
 }

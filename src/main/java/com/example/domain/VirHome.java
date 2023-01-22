@@ -1,17 +1,17 @@
 package com.example.domain;
 
+import com.example.ui.ObserverFrame;
+
 import java.net.SocketOption;
 import java.sql.SQLOutput;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class VirHome {
 
     private static VirHome virhome;
     private Map<String,AreaVigilata> elencoAree;
     private AreaVigilata areaCorrente;
+    private Map<String,Dispositivo> elencoDispositiviAttivi;
 
     private Database database;
 
@@ -28,6 +28,14 @@ public class VirHome {
             System.out.println("istanza già creata");
         }
         return virhome;
+    }
+
+    public Map<String, Dispositivo> getElencoDispositiviAttivi() {
+        return elencoDispositiviAttivi;
+    }
+
+    public void setElencoDispositiviAttivi(Map<String, Dispositivo> elencoDispositiviAttivi) {
+        this.elencoDispositiviAttivi = elencoDispositiviAttivi;
     }
 
     public Map<String, AreaVigilata> getElencoAree() {
@@ -87,6 +95,7 @@ public class VirHome {
     }
 
     public Set<String> attivaAntifurto(){
+        this.elencoDispositiviAttivi = new HashMap<>();
         return elencoAree.keySet();
     }
 
@@ -99,7 +108,30 @@ public class VirHome {
     public boolean selezionaDispositivoDaAttivare(int codiceDispositivo, String codiceArea){
         //sai il dispositivo da attivare e in quale area
         AreaVigilata A = elencoAree.get(codiceArea);
-        return A.selezionaDispositivoDaAttivare(codiceDispositivo);
+        Dispositivo dAttivo = A.selezionaDispositivoDaAttivare(codiceDispositivo);
+        if(dAttivo != null) {
+            elencoDispositiviAttivi.put(String.valueOf(codiceDispositivo), dAttivo);
+            return true;
+        }
+        else
+            return false;
     }
 
+    public void addObserver(){
+        Collection<Dispositivo> dAttivi = elencoDispositiviAttivi.values();
+        Observer observerFrame = new ObserverFrame(virhome);
+        for(Dispositivo d: dAttivi){
+            d.addObserver(observerFrame);
+        }
+    }
+
+    // ITERAZIONE 3
+
+    public void testDispositivo(String codiceDispositivo){
+        System.out.println(codiceDispositivo);
+        System.out.println(elencoDispositiviAttivi);
+        Dispositivo dAttivo = elencoDispositiviAttivi.get(codiceDispositivo);
+        System.out.println(dAttivo);
+        dAttivo.setMovimento(true);
+    }
 }

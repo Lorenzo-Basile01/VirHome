@@ -14,4 +14,5 @@ public class Telecamera extends Dispositivo {
                 ", attivo=" + attivo +
                 '}';
     }
+
 }

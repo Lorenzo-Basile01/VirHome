@@ -16,6 +16,7 @@ public class AttivationFrame extends JFrame {
     private JButton Attiva;
     private JTextArea textArea1;
     private JButton menuButton;
+    private JButton testDispositiviButton;
 
     private VirHome virHome;
 
@@ -30,7 +31,6 @@ public class AttivationFrame extends JFrame {
         selezionaDispositivoBox.setEnabled(false);
         attivaAntifurto();
         eventHandler();
-
     }
     private void attivaAntifurto(){
         for(String s : virHome.attivaAntifurto())
@@ -56,6 +56,11 @@ public class AttivationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 attivaActionPerformed(e);
+            }
+        });
+        testDispositiviButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {testDispositiviActionPerformed(e);
             }
         });
     }
@@ -104,6 +109,12 @@ public class AttivationFrame extends JFrame {
             textArea1.append(dispositivo.getValue().toString());
             textArea1.append("\n");
         }
+    }
+
+    public void testDispositiviActionPerformed(ActionEvent e){
+        virHome.addObserver();
+        setVisible(false);
+        new testDispositiviFrame(virHome);
     }
 
 

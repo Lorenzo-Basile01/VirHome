@@ -7,6 +7,10 @@ public abstract class Dispositivo {
     protected String area;
     protected boolean attivo;
 
+    protected boolean movimento;
+
+    private Observer observer;
+
     public Dispositivo(String area) {
         this.codiceDispositivo = ++counter;
         this.area = area;
@@ -47,4 +51,21 @@ public abstract class Dispositivo {
     }
 
     }*/
+
+    public boolean isMovimento() {
+        return movimento;
+    }
+
+    public void setMovimento(boolean movimento) {
+        this.movimento = movimento;
+        notify(this.area, this.codiceDispositivo);
+    }
+
+    public void addObserver(Observer o){
+        this.observer = o;
+    }
+
+    public void notify(String area, int codiceDispositivo){
+        observer.update(area, codiceDispositivo);
+    }
 }
