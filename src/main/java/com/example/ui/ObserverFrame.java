@@ -5,6 +5,7 @@ import com.example.domain.VirHome;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +23,7 @@ public class ObserverFrame extends JFrame implements Observer {
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(false);
+        settings();
 
         try {
             // Usa URL (invece di File) per leggere dal disco.
@@ -42,6 +44,12 @@ public class ObserverFrame extends JFrame implements Observer {
 
     }
 
+    private void settings(){
+        Font font = new Font("Serif",Font.BOLD,20);
+        dispositivoAttivato.setFont(font);
+        dispositivoAttivato.setForeground(Color.red);
+    }
+
     public void playClip() {
 
         if (clip.isRunning())
@@ -54,7 +62,7 @@ public class ObserverFrame extends JFrame implements Observer {
     @Override
     public void update(String area, int codiceDispositivo) {
         setVisible(true);
-        dispositivoAttivato.setText("dispositivo " + codiceDispositivo + " ha rilevato movimento in area " + area);
+        dispositivoAttivato.setText("Dispositivo " + codiceDispositivo + " ha rilevato movimento in area " + area);
         playClip();
     }
 

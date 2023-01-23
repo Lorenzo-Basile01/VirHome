@@ -125,6 +125,7 @@ public class VirHome {
         }
     }
 
+
     // ITERAZIONE 3
 
     public void testDispositivo(String codiceDispositivo){
