@@ -17,6 +17,7 @@ public class InserisciDispotivoFrame extends JFrame{
     private JLabel selection2;
     private JButton menuButton;
     private JSpinner spinner1;
+    private JButton annullaButton;
 
     public InserisciDispotivoFrame(VirHome v) {
         this.virhome= v;
@@ -66,6 +67,13 @@ public class InserisciDispotivoFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) { ritornaAlMenuActionPerformed(e);}
         });
+        annullaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                areaVig.setEnabled(true);
+                tipoDispositivo.setEnabled(true);
+            }
+        });
     }
 
     private void inserisciActionPerformed(ActionEvent e){
@@ -87,6 +95,8 @@ public class InserisciDispotivoFrame extends JFrame{
         confermaInserimentoButton.setEnabled(true);
         inserisciButton.setEnabled(false);
         spinner1.setEnabled(false);
+        areaVig.setEnabled(false);
+        tipoDispositivo.setEnabled(false);
     }
 
     private void confermaInserimentoActionPerformed(ActionEvent e){
@@ -94,6 +104,8 @@ public class InserisciDispotivoFrame extends JFrame{
         virhome.setSensibilita(Integer.parseInt(spinner1.getValue().toString()));
         inserisciButton.setEnabled(true);
         confermaInserimentoButton.setEnabled(false);
+        areaVig.setEnabled(true);
+        tipoDispositivo.setEnabled(true);
     }
 
     private void ritornaAlMenuActionPerformed(ActionEvent e){
