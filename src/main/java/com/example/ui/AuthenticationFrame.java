@@ -43,7 +43,6 @@ public class AuthenticationFrame extends JFrame{
         setSize(550,400);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         domandaTextField.setEnabled(false);
-        //domandaLabel.setVisible(false);
         setVisible(true);
         eventHandler();
         settings();
@@ -70,7 +69,6 @@ public class AuthenticationFrame extends JFrame{
         }
         else if(count > 1) {
             domandaTextField.setEnabled(true);
-            //domandaLabel.setVisible(false);
             codiceTextField.setText("");
             codiceTextField.setEnabled(false);
             if (virHome.verifyQuestion(nometextField1.getText(), domandaTextField.getText())) {
@@ -84,8 +82,8 @@ public class AuthenticationFrame extends JFrame{
                 if (this.gestisci == 'a') {
                     new AttivationFrame(virHome);
                     setVisible(false);
-                } else {
-                    //new InserisciDispotivoFrame(virHome); metti disarma poi
+                } else if(this.gestisci == 'd'){
+                    new MenuFrame(virHome);
                     setVisible(false);
                 }
 

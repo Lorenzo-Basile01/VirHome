@@ -33,8 +33,9 @@ public class AttivationFrame extends JFrame {
         eventHandler();
     }
     private void attivaAntifurto(){
-        for(String s : virHome.attivaAntifurto())
-        selezionaAreaBox.addItem(s);//aggiungo alla combo box una lista di oggetti
+        for(String s : virHome.attivaAntifurto()) {
+            selezionaAreaBox.addItem(s);//aggiungo alla combo box una lista di oggetti
+        }
     }
 
     private void eventHandler(){
@@ -85,6 +86,7 @@ public class AttivationFrame extends JFrame {
         textArea1.setText("");
         if(selezionaDispositivoBox.getSelectedItem() != null && selezionaAreaBox.getSelectedItem() != null) {
             boolean attivo = virHome.selezionaDispositivoDaAttivare(Integer.parseInt(selezionaDispositivoBox.getSelectedItem().toString()), selezionaAreaBox.getSelectedItem().toString());
+            virHome.addObserver(selezionaDispositivoBox.getSelectedItem().toString());
             if (!attivo) {
                 textArea1.append("Dispositivo " + selezionaDispositivoBox.getSelectedItem().toString() + " già attivo");
             } else {
@@ -111,8 +113,7 @@ public class AttivationFrame extends JFrame {
         }
     }
 
-    public void testDispositiviActionPerformed(ActionEvent e){
-        virHome.addObserver();
+    private void testDispositiviActionPerformed(ActionEvent e){
         setVisible(false);
         new testDispositiviFrame(virHome);
     }

@@ -72,4 +72,17 @@ public class AreaVigilata {
         }
         return null;
     }
+
+    //ITERAZIONE 5
+    public void setSensibilita(int sensibilita){
+        if(dispositivoCorrente instanceof Sensore){
+            try {
+                ((Sensore) dispositivoCorrente).setSensibilità(sensibilita);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+            System.out.println("è una telecamera");
+        }
+    }
 }

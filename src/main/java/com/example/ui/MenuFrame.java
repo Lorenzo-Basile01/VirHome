@@ -17,7 +17,7 @@ public class MenuFrame extends JFrame {
     private JButton back;
     private JButton visualizzaDispositiviAttiviButton;
 
-
+    private char autenticato;
     public MenuFrame(VirHome v) throws HeadlessException {
         this.virhome=v;
         setTitle("Main");
@@ -58,5 +58,36 @@ public class MenuFrame extends JFrame {
                 setVisible(false);
             }
         });
+
+        disarmaAntifurtoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                disarmaActionPerformed(e);
+            }
+        });
+
+        visualizzaDispositiviAttiviButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                visualizzaDispositiviActionperformed(e);
+            }
+        });
+    }
+
+    private void disarmaActionPerformed(ActionEvent e){
+        setVisible(false);
+        new AuthenticationFrame(virhome,'d');
+        if(virhome.disarmAntifurto() == true){
+            //rimuovo l'ooservatore
+            virhome.removeObserver();
+        }
+        else{
+            System.out.println("Nessun dispositivo attivo");
+        }
+    }
+
+    private void visualizzaDispositiviActionperformed(ActionEvent e){
+        new VisualizzaDispAttiFrame(virhome);
+        setVisible(false);
     }
 }

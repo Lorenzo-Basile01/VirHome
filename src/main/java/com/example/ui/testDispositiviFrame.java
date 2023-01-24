@@ -14,6 +14,8 @@ public class testDispositiviFrame extends JFrame{
     private JPanel testPanel;
     private JComboBox testComboBox;
     private JButton testButton;
+    private JButton menuButton;
+    private JLabel error;
     private VirHome virHome;
 
     public testDispositiviFrame(VirHome v) {
@@ -31,13 +33,23 @@ public class testDispositiviFrame extends JFrame{
         testButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                virHome.testDispositivo(testComboBox.getSelectedItem().toString());
+                if(testComboBox.getSelectedItem() == null){
+                    error.setText("Nessun dispostivo attivo");
+                }else {
+                    virHome.testDispositivo(testComboBox.getSelectedItem().toString());
+                }
+            }
+        });
+        menuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MenuFrame(virHome);
+                setVisible(false);
             }
         });
     }
 
     private void stampaMappa(){
-
         Map<String, Dispositivo> map = virHome.getElencoDispositiviAttivi();
         //selezionaArea torna una mappa di dispositivi
         Iterator<Map.Entry<String, Dispositivo>> dispositivi = map.entrySet().iterator();

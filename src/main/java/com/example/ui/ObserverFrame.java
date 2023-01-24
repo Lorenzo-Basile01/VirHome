@@ -6,14 +6,16 @@ import com.example.domain.VirHome;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class ObserverFrame extends JFrame implements Observer {
     private VirHome virhome;
     private JPanel observerPanel;
     private JLabel dispositivoAttivato;
+    private JButton chiudiButton;
     private Clip clip;
 
     public ObserverFrame(VirHome v) {
@@ -24,7 +26,7 @@ public class ObserverFrame extends JFrame implements Observer {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(false);
         settings();
-
+        eventHandler();
         try {
             // Usa URL (invece di File) per leggere dal disco.
             File fileSuono = new File("alarm.wav");
@@ -45,7 +47,7 @@ public class ObserverFrame extends JFrame implements Observer {
     }
 
     private void settings(){
-        Font font = new Font("Serif",Font.BOLD,20);
+        Font font = new Font("Serif",Font.BOLD,18);
         dispositivoAttivato.setFont(font);
         dispositivoAttivato.setForeground(Color.red);
     }
@@ -57,6 +59,15 @@ public class ObserverFrame extends JFrame implements Observer {
         clip.setFramePosition(0); // Riavvolgi il suono.
         clip.start();     // Esegui il suono.
 
+    }
+
+    private void eventHandler(){
+        chiudiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
     }
 
     @Override

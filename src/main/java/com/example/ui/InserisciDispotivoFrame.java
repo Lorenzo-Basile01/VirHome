@@ -16,6 +16,7 @@ public class InserisciDispotivoFrame extends JFrame{
     private JLabel selection1;
     private JLabel selection2;
     private JButton menuButton;
+    private JSpinner spinner1;
 
     public InserisciDispotivoFrame(VirHome v) {
         this.virhome= v;
@@ -28,9 +29,7 @@ public class InserisciDispotivoFrame extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         confermaInserimentoButton.setEnabled(false);
-
         eventHandler();
-
     }
 
     private void aggiungiAreeAlComboBox(){
@@ -39,6 +38,17 @@ public class InserisciDispotivoFrame extends JFrame{
     }
 
     private void eventHandler(){
+        tipoDispositivo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(tipoDispositivo.getSelectedItem().toString() == "telecamera"){
+                    spinner1.setEnabled(false);
+                }
+                else{
+                    spinner1.setEnabled(true);
+                }
+            }
+        });
         inserisciButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,6 +76,7 @@ public class InserisciDispotivoFrame extends JFrame{
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
+
         }else{
             try {
                 virhome.inserisciDispositivo(areaVig.getSelectedItem().toString(),'t');
@@ -75,11 +86,12 @@ public class InserisciDispotivoFrame extends JFrame{
         }
         confermaInserimentoButton.setEnabled(true);
         inserisciButton.setEnabled(false);
+        spinner1.setEnabled(false);
     }
 
     private void confermaInserimentoActionPerformed(ActionEvent e){
         virhome.confermaInserimento();
-        System.out.println(virhome.getElencoAree());
+        virhome.setSensibilita(Integer.parseInt(spinner1.getValue().toString()));
         inserisciButton.setEnabled(true);
         confermaInserimentoButton.setEnabled(false);
     }

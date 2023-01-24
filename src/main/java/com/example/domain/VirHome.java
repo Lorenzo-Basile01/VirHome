@@ -18,6 +18,7 @@ public class VirHome {
     private VirHome() {
         this.elencoAree = new HashMap<>();
         this.database =  new Database();
+        this.elencoDispositiviAttivi = new HashMap<>();
         loadAree();
     }
 
@@ -83,10 +84,6 @@ public class VirHome {
 
     public boolean verifyUser(int codice, String nome){
         boolean a = database.verifyUser(codice,nome);
-        /*if(a == true){
-            database.closeConnection();
-            System.out.println("connessione chiusa");
-        }*/
         return a;
     }
 
@@ -95,7 +92,6 @@ public class VirHome {
     }
 
     public Set<String> attivaAntifurto(){
-        this.elencoDispositiviAttivi = new HashMap<>();
         return elencoAree.keySet();
     }
 
@@ -117,22 +113,46 @@ public class VirHome {
             return false;
     }
 
-    public void addObserver(){
-        Collection<Dispositivo> dAttivi = elencoDispositiviAttivi.values();
+    public void addObserver(String codiceDispositivo){  //register
         Observer observerFrame = new ObserverFrame(virhome);
-        for(Dispositivo d: dAttivi){
-            d.addObserver(observerFrame);
+        Dispositivo d = elencoDispositiviAttivi.get(codiceDispositivo);
+        d.addObserver(observerFrame);
+
+    }
+
+    // ITERAZIONE 3
+    public void testDispositivo(String codiceDispositivo){
+        Dispositivo dAttivo = elencoDispositiviAttivi.get(codiceDispositivo);
+        dAttivo.setMovimento(true);
+    }
+
+    // ITERAZIONE 4
+    public boolean disarmAntifurto(){
+        if(elencoDispositiviAttivi != null) {
+            Map<String, Dispositivo> map = elencoDispositiviAttivi;
+            Iterator<Map.Entry<String, Dispositivo>> dispositivi = map.entrySet().iterator();
+            while (dispositivi.hasNext()) {
+                Map.Entry<String, Dispositivo> dispositivo = dispositivi.next(); //scorro l'iterator
+                Dispositivo d = dispositivo.getValue();
+                if (d.attivo) {
+                    d.setAttivo(false);
+                }
+            }
+            elencoDispositiviAttivi.keySet().removeAll(elencoDispositiviAttivi.keySet());
+            return true;
+        }
+        return false;
+    }
+
+    public void removeObserver(){
+        Collection<Dispositivo> dAttivi = elencoDispositiviAttivi.values();
+        for(Dispositivo d: dAttivi) {
+            d.removeObserver();
         }
     }
 
-
-    // ITERAZIONE 3
-
-    public void testDispositivo(String codiceDispositivo){
-        System.out.println(codiceDispositivo);
-        System.out.println(elencoDispositiviAttivi);
-        Dispositivo dAttivo = elencoDispositiviAttivi.get(codiceDispositivo);
-        System.out.println(dAttivo);
-        dAttivo.setMovimento(true);
+    //ITERAZIONE 5
+    public void setSensibilita(int sensibilita){
+       this.areaCorrente.setSensibilita(sensibilita);
     }
 }

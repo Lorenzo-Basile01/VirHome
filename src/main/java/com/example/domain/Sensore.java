@@ -4,7 +4,7 @@ public class Sensore extends Dispositivo{
 
     private int sensibilità;
 
-    public Sensore(String area, int sensibilità)throws Exception  {
+    public Sensore(String area, int sensibilità){
         super(area);
         setSensibilità(sensibilità);
     }
@@ -22,11 +22,13 @@ public class Sensore extends Dispositivo{
         this.sensibilità = 5;
     }
 
-    public void setSensibilità(int sensibilità) throws Exception{
-        if(sensibilità < 1){
-            throw new Exception("Valore di sensibilità non valido");
+    public void setSensibilità(int sensibilità){
+        if(sensibilità < 1 || sensibilità > 10){
+            System.out.println("valore della sensibilità non valido, valore minimo impostato");
+            this.sensibilità = 1;
+        }else {
+            this.sensibilità = sensibilità;
         }
-        this.sensibilità = sensibilità;
     }
 
     @Override
@@ -39,9 +41,4 @@ public class Sensore extends Dispositivo{
                 '}';
     }
 
-    /* TEMPLEATE GOF
-    @Override
-    protected void doGet(String a) {
-
-    }*/
 }

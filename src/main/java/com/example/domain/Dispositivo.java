@@ -41,17 +41,6 @@ public abstract class Dispositivo {
         this.attivo = attivo;
     }
 
-    /* TEMPLATE GOF
-    protected abstract void doGet(String a);
-    protected abstract void doSet(String b);
-
-    public void prova(){ metodo che gestisce l'algoritmo che chiama al suo interno un metodo primitivo
-        doGet("ciao");          dichiarato abstract nella superclasse che poi verra implementato dalla sottoclasse
-        doSet("ciao");
-    }
-
-    }*/
-
     public boolean isMovimento() {
         return movimento;
     }
@@ -65,7 +54,11 @@ public abstract class Dispositivo {
         this.observer = o;
     }
 
-    public void notify(String area, int codiceDispositivo){
+    public void removeObserver(){
+        this.observer = null;
+    }
+
+    private void notify(String area, int codiceDispositivo){
         observer.update(area, codiceDispositivo);
     }
 }
