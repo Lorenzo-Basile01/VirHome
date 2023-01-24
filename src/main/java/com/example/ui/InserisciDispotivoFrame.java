@@ -72,6 +72,7 @@ public class InserisciDispotivoFrame extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 areaVig.setEnabled(true);
                 tipoDispositivo.setEnabled(true);
+                inserisciButton.setEnabled(true);
             }
         });
     }
