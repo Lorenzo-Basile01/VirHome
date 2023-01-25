@@ -33,6 +33,10 @@ public abstract class Dispositivo {
         this.area = area;
     }
 
+    public void decrementaCounter(){
+        Dispositivo.counter--;
+    }
+
     public boolean isAttivo() {
         return attivo;
     }

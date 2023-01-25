@@ -120,13 +120,11 @@ public class VirHome {
 
     }
 
-    // ITERAZIONE 3
     public void testDispositivo(String codiceDispositivo){
         Dispositivo dAttivo = elencoDispositiviAttivi.get(codiceDispositivo);
         dAttivo.setMovimento(true);
     }
 
-    // ITERAZIONE 4
     public boolean disarmAntifurto(){
         if(elencoDispositiviAttivi != null) {
             Map<String, Dispositivo> map = elencoDispositiviAttivi;
@@ -151,8 +149,20 @@ public class VirHome {
         }
     }
 
-    //ITERAZIONE 5
     public void setSensibilita(int sensibilita){
        this.areaCorrente.setSensibilita(sensibilita);
     }
+
+    public void annullaInserimento(){
+        this.areaCorrente.annullaInserimento();
+    }
+
+    public boolean modificaDati(String nome,int codice, int nuovoCod,String domanda, int telefono){
+       return database.modificaDati(nome,codice,nuovoCod,domanda, telefono);
+    }
+
+    public boolean rimuoviUser(String nome, int codice){
+        return database.rimuoviUser(nome,codice);
+    }
+
 }

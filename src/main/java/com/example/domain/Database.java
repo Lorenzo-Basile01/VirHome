@@ -8,7 +8,7 @@ public class Database {
 
     final String DB_URL = "jdbc:mysql://localhost:3306/virhome";
     final String USERNAME = "root";
-    final String PASSWORD = "0000";
+    final String PASSWORD = "12345";
     Connection con;
 
     public Database() {
@@ -95,5 +95,43 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public boolean modificaDati(String nome, int codice, int nuovoCod,String domanda, int telefono){
+        try {
+            Statement stm = con.createStatement();
+            String query = "UPDATE user set codice = ?, domandaSicurezza = ?, telefono = ? where nome = ? and codice = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setInt(1, nuovoCod);
+            preparedStatement.setString(2, domanda);
+            preparedStatement.setInt(3, telefono);
+            preparedStatement.setString(4, nome);
+            preparedStatement.setInt(5, codice);
+            int n = preparedStatement.executeUpdate();
+            if (n > 0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean rimuoviUser(String nome, int codice){
+        try {
+            Statement stm = con.createStatement();
+            String query = "DELETE from user where nome = ? and codice = ?";
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, nome);
+            preparedStatement.setInt(2, codice);
+            int n = preparedStatement.executeUpdate();
+            if (n > 0) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

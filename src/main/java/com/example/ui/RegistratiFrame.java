@@ -18,6 +18,7 @@ public class RegistratiFrame extends JFrame{
     private JLabel error;
     private JLabel titolo;
     private JButton back;
+    private JLabel label;
 
     private VirHome virhome;
 
@@ -35,7 +36,7 @@ public class RegistratiFrame extends JFrame{
     }
      private void settings(){
          Font font = new Font("Magneto",Font.BOLD,15);
-
+         label.setFont(new Font("Arial",Font.BOLD,8));
          titolo.setFont(font);
          titolo.setForeground(Color.gray);
      }

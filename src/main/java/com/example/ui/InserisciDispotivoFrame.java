@@ -30,6 +30,8 @@ public class InserisciDispotivoFrame extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         confermaInserimentoButton.setEnabled(false);
+        spinner1.setEnabled(false);
+        annullaButton.setEnabled(false);
         eventHandler();
     }
 
@@ -70,14 +72,13 @@ public class InserisciDispotivoFrame extends JFrame{
         annullaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                areaVig.setEnabled(true);
-                tipoDispositivo.setEnabled(true);
-                inserisciButton.setEnabled(true);
+                annullaActionPerformed(e);
             }
         });
     }
 
     private void inserisciActionPerformed(ActionEvent e){
+
 
         if(tipoDispositivo.getSelectedItem().toString() == "sensore"){
             try {
@@ -98,6 +99,7 @@ public class InserisciDispotivoFrame extends JFrame{
         spinner1.setEnabled(false);
         areaVig.setEnabled(false);
         tipoDispositivo.setEnabled(false);
+        annullaButton.setEnabled(true);
     }
 
     private void confermaInserimentoActionPerformed(ActionEvent e){
@@ -107,10 +109,20 @@ public class InserisciDispotivoFrame extends JFrame{
         confermaInserimentoButton.setEnabled(false);
         areaVig.setEnabled(true);
         tipoDispositivo.setEnabled(true);
+        annullaButton.setEnabled(false);
     }
 
     private void ritornaAlMenuActionPerformed(ActionEvent e){
         new MenuFrame(virhome);
         setVisible(false);
+    }
+
+    private void annullaActionPerformed(ActionEvent e){
+        areaVig.setEnabled(true);
+        tipoDispositivo.setEnabled(true);
+        inserisciButton.setEnabled(true);
+        confermaInserimentoButton.setEnabled(false);
+        annullaButton.setEnabled(false);
+        virhome.annullaInserimento();
     }
 }

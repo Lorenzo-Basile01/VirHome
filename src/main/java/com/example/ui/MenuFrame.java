@@ -16,8 +16,8 @@ public class MenuFrame extends JFrame {
     private JLabel t;
     private JButton back;
     private JButton visualizzaDispositiviAttiviButton;
+    private JButton impostazioniButton;
 
-    private char autenticato;
     public MenuFrame(VirHome v) throws HeadlessException {
         this.virhome=v;
         setTitle("Main");
@@ -72,6 +72,13 @@ public class MenuFrame extends JFrame {
                 visualizzaDispositiviActionperformed(e);
             }
         });
+
+        impostazioniButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                impostazioniActionPerformed(e);
+            }
+        });
     }
 
     private void disarmaActionPerformed(ActionEvent e){
@@ -88,6 +95,11 @@ public class MenuFrame extends JFrame {
 
     private void visualizzaDispositiviActionperformed(ActionEvent e){
         new VisualizzaDispAttiFrame(virhome);
+        setVisible(false);
+    }
+
+    private void impostazioniActionPerformed(ActionEvent e){
+        new ImpostazioniFrame(virhome);
         setVisible(false);
     }
 }

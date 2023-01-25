@@ -62,8 +62,6 @@ public class AreaVigilata {
         }
     }
 
-    //ITERAZIONE 2
-
     public Dispositivo selezionaDispositivoDaAttivare(int codiceDispositivo){
         Dispositivo D = elencoDispositivi.get(String.valueOf(codiceDispositivo));
         if(!D.isAttivo()){
@@ -73,7 +71,6 @@ public class AreaVigilata {
         return null;
     }
 
-    //ITERAZIONE 5
     public void setSensibilita(int sensibilita){
         if(dispositivoCorrente instanceof Sensore){
             try {
@@ -85,4 +82,14 @@ public class AreaVigilata {
             System.out.println("è una telecamera");
         }
     }
+
+    private void annullaDispositivoCorrente(){
+        this.dispositivoCorrente = null;
+    }
+    public void annullaInserimento(){
+        dispositivoCorrente.decrementaCounter();
+        annullaDispositivoCorrente();
+    }
+
+
 }
