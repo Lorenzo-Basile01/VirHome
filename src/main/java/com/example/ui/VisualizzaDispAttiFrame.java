@@ -40,13 +40,17 @@ public class VisualizzaDispAttiFrame extends JFrame {
     }
 
     private void stampaDispAttivi(){
-        Map<String, Dispositivo> map = virhome.getElencoDispositiviAttivi();
-        Iterator<Map.Entry<String, Dispositivo>> dispositivi = map.entrySet().iterator();
-        while(dispositivi.hasNext()){
-            Map.Entry<String, Dispositivo> dispositivo = dispositivi.next(); //scorro l'iterator
-            System.out.println(dispositivo);
-            textArea1.append(dispositivo.getValue().toString());
-            textArea1.append("\n");
+        if(virhome.getElencoDispositiviAttivi().isEmpty()){
+            textArea1.append("Nessun dispositivo attivo");
+        }else {
+            Map<String, Dispositivo> map = virhome.getElencoDispositiviAttivi();
+            Iterator<Map.Entry<String, Dispositivo>> dispositivi = map.entrySet().iterator();
+            while (dispositivi.hasNext()) {
+                Map.Entry<String, Dispositivo> dispositivo = dispositivi.next(); //scorro l'iterator
+                System.out.println(dispositivo);
+                textArea1.append(dispositivo.getValue().toString());
+                textArea1.append("\n");
+            }
         }
     }
 }
