@@ -36,7 +36,11 @@ public class testDispositiviFrame extends JFrame{
                 if(testComboBox.getSelectedItem() == null){
                     error.setText("Nessun dispostivo attivo");
                 }else {
-                    virHome.testDispositivo(testComboBox.getSelectedItem().toString());
+                    try {
+                        virHome.testDispositivo(testComboBox.getSelectedItem().toString());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });

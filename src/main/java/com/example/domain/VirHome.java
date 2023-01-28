@@ -43,8 +43,16 @@ public class VirHome {
         return elencoAree;
     }
 
+    public void setElencoAree(Map<String, AreaVigilata> elencoAree) {
+        this.elencoAree = elencoAree;
+    }
+
     public AreaVigilata getAreaCorrente() {
         return areaCorrente;
+    }
+
+    public void setAreaCorrente(AreaVigilata areaCorrente) {
+        this.areaCorrente = areaCorrente;
     }
 
     public void loadAree(){
@@ -66,7 +74,6 @@ public class VirHome {
     }
 
     public void inserisciDispositivo(String codiceArea, char tipoDispositivo) throws Exception{
-
         AreaVigilata A = elencoAree.get(codiceArea);
         this.areaCorrente = A;
         if(A != null){
@@ -76,18 +83,22 @@ public class VirHome {
         }
     }
 
-    public void confermaInserimento(){
-        this.areaCorrente.confermaInserimento();
+    public void confermaInserimento() throws Exception {
+        if(areaCorrente == null){
+            throw new Exception();
+        }else {
+            this.areaCorrente.confermaInserimento();
+        }
     }
 
     //ITERAZIONE 2
 
-    public boolean verifyUser(int codice, String nome){
+    public boolean verifyUser(int codice, String nome) throws Exception {
         boolean a = database.verifyUser(codice,nome);
         return a;
     }
 
-    public boolean verifyQuestion(String nome, String domanda){
+    public boolean verifyQuestion(String nome, String domanda) throws Exception {
         return database.verifyQuestion(nome, domanda);
     }
 
@@ -95,34 +106,54 @@ public class VirHome {
         return elencoAree.keySet();
     }
 
-    public Map<String, Dispositivo> selezionaArea(String codiceArea){
-         AreaVigilata s = elencoAree.get(codiceArea);
-         return s.getElencoDispositivi();
+    public Map<String, Dispositivo> selezionaArea(String codiceArea) throws Exception {
+        if(codiceArea == null || codiceArea.equals("")){
+            throw new Exception("codice area nullo o vuoto");
+        }else {
+            AreaVigilata A = elencoAree.get(codiceArea);
+            return A.getElencoDispositivi();
+        }
          //ottengo un insieme di dispositivi, non sai ancora quale dei dispositivi vuoi attivare
     }
 
-    public boolean selezionaDispositivoDaAttivare(int codiceDispositivo, String codiceArea){
+    public boolean selezionaDispositivoDaAttivare(int codiceDispositivo, String codiceArea) throws Exception {
         //sai il dispositivo da attivare e in quale area
-        AreaVigilata A = elencoAree.get(codiceArea);
-        Dispositivo dAttivo = A.selezionaDispositivoDaAttivare(codiceDispositivo);
-        if(dAttivo != null) {
-            elencoDispositiviAttivi.put(String.valueOf(codiceDispositivo), dAttivo);
-            return true;
+        if(codiceArea == null || codiceArea.equals("")) {
+            throw new Exception("codice area nullo o vuoto");
+        }else {
+            AreaVigilata A = elencoAree.get(codiceArea);
+            Dispositivo dAttivo = A.selezionaDispositivoDaAttivare(codiceDispositivo);
+            if (dAttivo != null) {
+                elencoDispositiviAttivi.put(String.valueOf(codiceDispositivo), dAttivo);
+                return true;
+            }
         }
-        else
             return false;
     }
 
-    public void addObserver(String codiceDispositivo){  //register
-        Observer observerFrame = new ObserverFrame(virhome);
-        Dispositivo d = elencoDispositiviAttivi.get(codiceDispositivo);
-        d.addObserver(observerFrame);
-
+    public void addObserver(String codiceDispositivo) throws Exception {  //register
+        if(Integer.parseInt(codiceDispositivo)<=0) {
+            throw new Exception("codice dispositivo non valido");
+        }else {
+            Observer observerFrame = new ObserverFrame(virhome);
+            Dispositivo d = elencoDispositiviAttivi.get(codiceDispositivo);
+            if(d != null)
+                d.addObserver(observerFrame);
+            else
+                throw new Exception("Dispositivo non esistente");
+        }
     }
 
-    public void testDispositivo(String codiceDispositivo){
-        Dispositivo dAttivo = elencoDispositiviAttivi.get(codiceDispositivo);
-        dAttivo.setMovimento(true);
+    public void testDispositivo(String codiceDispositivo) throws Exception {
+        if(Integer.parseInt(codiceDispositivo)<=0) {
+            throw new Exception("codice dispositivo non valido");
+        }else {
+            Dispositivo dAttivo = elencoDispositiviAttivi.get(codiceDispositivo);
+            if(dAttivo != null)
+                dAttivo.setMovimento(true);
+            else
+                throw new Exception("Dispositivo non esistente");
+        }
     }
 
     public boolean disarmAntifurto(){
@@ -142,14 +173,17 @@ public class VirHome {
         return false;
     }
 
-    public void removeObserver(){
+    public void removeObserver() throws Exception {
+        if(elencoDispositiviAttivi == null){
+            throw new Exception("nessun dispositivo attivo");
+        }
         Collection<Dispositivo> dAttivi = elencoDispositiviAttivi.values();
         for(Dispositivo d: dAttivi) {
             d.removeObserver();
         }
     }
 
-    public void setSensibilita(int sensibilita){
+    public void setSensibilita(int sensibilita) throws Exception {
        this.areaCorrente.setSensibilita(sensibilita);
     }
 

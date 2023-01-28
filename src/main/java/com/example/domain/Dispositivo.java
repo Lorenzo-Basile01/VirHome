@@ -49,6 +49,10 @@ public abstract class Dispositivo {
         return movimento;
     }
 
+    public Observer getObserver() {
+        return observer;
+    }
+
     public void setMovimento(boolean movimento) {
         this.movimento = movimento;
         notify(this.area, this.codiceDispositivo);

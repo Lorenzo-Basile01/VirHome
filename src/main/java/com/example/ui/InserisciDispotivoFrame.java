@@ -3,8 +3,9 @@ package com.example.ui;
 import com.example.domain.VirHome;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.event.*;
 
 public class InserisciDispotivoFrame extends JFrame{
     private VirHome virhome;
@@ -103,8 +104,18 @@ public class InserisciDispotivoFrame extends JFrame{
     }
 
     private void confermaInserimentoActionPerformed(ActionEvent e){
-        virhome.confermaInserimento();
-        virhome.setSensibilita(Integer.parseInt(spinner1.getValue().toString()));
+        try {
+            virhome.confermaInserimento();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        if(tipoDispositivo.getSelectedItem().toString().equals("sensore")){
+            try {
+                virhome.setSensibilita(Integer.parseInt(spinner1.getValue().toString()));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         inserisciButton.setEnabled(true);
         confermaInserimentoButton.setEnabled(false);
         areaVig.setEnabled(true);

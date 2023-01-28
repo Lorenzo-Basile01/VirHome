@@ -66,6 +66,8 @@ public class RegistratiFrame extends JFrame{
                 System.out.println("registrazione avvenuta");
                 new MenuFrame(virhome);
                 setVisible(false);
+            }else{
+                error.setText("utente già esistente");
             }
         }
         else{

@@ -17,6 +17,7 @@ public class ObserverFrame extends JFrame implements Observer {
     private JLabel dispositivoAttivato;
     private JButton chiudiButton;
     private Clip clip;
+    private FloatControl fc;
 
     public ObserverFrame(VirHome v) {
         this.virhome = v;
@@ -36,6 +37,8 @@ public class ObserverFrame extends JFrame implements Observer {
             clip = AudioSystem.getClip();
             // Apri l'audio del clip.
             clip.open(audioInputStream);
+            fc = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+            fc.setValue(-35.0f);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {

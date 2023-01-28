@@ -12,7 +12,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="f5106630-cad3-4d24-a8d3-e1abc0ba1935">
+    <connection id="8d50b5d4-daf1-4f03-b665-8cdc4ec3bb8e">
       <console name="VirHome" type="STANDARD" schema="mysql" session="Main" />
     </connection>
   </component>
@@ -23,7 +23,7 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="f81ffc39-964d-4829-af66-f3f8b04c74ee" dataset="virhome.user" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="8d50b5d4-daf1-4f03-b665-8cdc4ec3bb8e" dataset="virhome.user" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -45,7 +45,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="f5106630-cad3-4d24-a8d3-e1abc0ba1935" active="true" signed="true">
+      <connection id="8d50b5d4-daf1-4f03-b665-8cdc4ec3bb8e" active="true" signed="true">
         <database>
           <name value="VirHome" />
           <description value="" />
@@ -61,7 +61,7 @@
           <database value="mysql" />
           <type value="USER_PASSWORD" />
           <user value="root" />
-          <deprecated-pwd value="MTIzNDU=" />
+          <deprecated-pwd value="MDAwMA==" />
         </database>
         <properties>
           <auto-commit value="false" />

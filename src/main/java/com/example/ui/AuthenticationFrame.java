@@ -58,12 +58,16 @@ public class AuthenticationFrame extends JFrame{
         autenticatiButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                authenticationActionPerformed(e);
+                try {
+                    authenticationActionPerformed(e);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
     }
 
-    private void authenticationActionPerformed(ActionEvent e){
+    private void authenticationActionPerformed(ActionEvent e) throws Exception {
         if((codiceTextField.getText().equals("") || nometextField1.getText().equals("")) && codiceTextField.isEnabled()){
             error.setText("Compilare tutti i campi");
         }

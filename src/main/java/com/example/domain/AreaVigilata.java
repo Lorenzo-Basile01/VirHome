@@ -17,6 +17,14 @@ public class AreaVigilata {
         this.elencoDispositivi = new HashMap<>();
     }
 
+    public Dispositivo getDispositivoCorrente() {
+        return dispositivoCorrente;
+    }
+
+    public void setDispositivoCorrente(Dispositivo dispositivoCorrente) {
+        this.dispositivoCorrente = dispositivoCorrente;
+    }
+
     public String getCodiceArea() {
         return codiceArea;
     }
@@ -42,6 +50,9 @@ public class AreaVigilata {
     }
 
     public void inserisciDispositivo(char tipoDispositivo)throws Exception{
+        if(this.codiceArea == null){
+            throw new NullPointerException("codice area nullo");
+        }
         if(tipoDispositivo == 's'){
             Dispositivo D = new Sensore(this.codiceArea);
             this.dispositivoCorrente = D;
@@ -55,23 +66,33 @@ public class AreaVigilata {
         }
     }
 
-    public void confermaInserimento(){
+    public void confermaInserimento() throws Exception {
         if(this.dispositivoCorrente != null){//get codice dispositivo lo facciamo qua
             elencoDispositivi.put(String.valueOf(this.dispositivoCorrente.getCodiceDispositivo()),this.dispositivoCorrente);
             System.out.println("operazione di inserimento conclusa");
+        }else{
+            throw new Exception("nessun dispositivo corrente");
         }
     }
 
-    public Dispositivo selezionaDispositivoDaAttivare(int codiceDispositivo){
+    public Dispositivo selezionaDispositivoDaAttivare(int codiceDispositivo) throws Exception {
         Dispositivo D = elencoDispositivi.get(String.valueOf(codiceDispositivo));
-        if(!D.isAttivo()){
+        if(D == null){
+            throw new Exception("nessun dispositivo creato, o nessun dispositivo esistente con tale codice");
+        }else if(codiceDispositivo<=0){
+            throw new Exception("codice non valido");
+        }
+        else if(!D.isAttivo()){
             D.setAttivo(true);
             return D;
         }
         return null;
     }
 
-    public void setSensibilita(int sensibilita){
+    public void setSensibilita(int sensibilita) throws Exception {
+        if(dispositivoCorrente == null){
+            throw new Exception("nessun dispositivo corrente");
+        }
         if(dispositivoCorrente instanceof Sensore){
             try {
                 ((Sensore) dispositivoCorrente).setSensibilità(sensibilita);
@@ -79,16 +100,19 @@ public class AreaVigilata {
                 throw new RuntimeException(e);
             }
         }else{
-            System.out.println("è una telecamera");
+            throw new Exception("non puoi settare sensibilità telecamera");
         }
     }
 
     private void annullaDispositivoCorrente(){
         this.dispositivoCorrente = null;
     }
+
     public void annullaInserimento(){
-        dispositivoCorrente.decrementaCounter();
-        annullaDispositivoCorrente();
+        if(dispositivoCorrente != null) {
+            dispositivoCorrente.decrementaCounter();
+            annullaDispositivoCorrente();
+        }
     }
 
 

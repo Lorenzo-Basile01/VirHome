@@ -85,8 +85,13 @@ public class AttivationFrame extends JFrame {
     private void attivaActionPerformed(ActionEvent e){
         textArea1.setText("");
         if(selezionaDispositivoBox.getSelectedItem() != null && selezionaAreaBox.getSelectedItem() != null) {
-            boolean attivo = virHome.selezionaDispositivoDaAttivare(Integer.parseInt(selezionaDispositivoBox.getSelectedItem().toString()), selezionaAreaBox.getSelectedItem().toString());
-            virHome.addObserver(selezionaDispositivoBox.getSelectedItem().toString());
+            boolean attivo = false;
+            try {
+                attivo = virHome.selezionaDispositivoDaAttivare(Integer.parseInt(selezionaDispositivoBox.getSelectedItem().toString()), selezionaAreaBox.getSelectedItem().toString());
+                virHome.addObserver(selezionaDispositivoBox.getSelectedItem().toString());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
             if (!attivo) {
                 textArea1.append("Dispositivo " + selezionaDispositivoBox.getSelectedItem().toString() + " già attivo");
             } else {
@@ -101,7 +106,12 @@ public class AttivationFrame extends JFrame {
 
     private void stampaMappa(){
 
-        Map<String, Dispositivo> map = virHome.selezionaArea(selezionaAreaBox.getSelectedItem().toString());
+        Map<String, Dispositivo> map = null;
+        try {
+            map = virHome.selezionaArea(selezionaAreaBox.getSelectedItem().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //selezionaArea torna una mappa di dispositivi
         Iterator<Map.Entry<String, Dispositivo>> dispositivi = map.entrySet().iterator();
         //creo l'iterator

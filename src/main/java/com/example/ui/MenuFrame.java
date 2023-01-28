@@ -86,7 +86,11 @@ public class MenuFrame extends JFrame {
         new AuthenticationFrame(virhome,'d');
         if(virhome.disarmAntifurto() == true){
             //rimuovo l'ooservatore
-            virhome.removeObserver();
+            try {
+                virhome.removeObserver();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
         else{
             System.out.println("Nessun dispositivo attivo");
