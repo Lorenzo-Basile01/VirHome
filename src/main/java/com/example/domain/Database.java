@@ -6,7 +6,7 @@ public class Database {
 
     final String DB_URL = "jdbc:mysql://localhost:3306/virhome";
     final String USERNAME = "root";
-    final String PASSWORD = "0000";
+    final String PASSWORD = "12345";
     Connection con;
 
     public Database() {
@@ -132,7 +132,7 @@ public class Database {
             preparedStatement.setInt(3, telefono);
             preparedStatement.setString(4, nome);
             preparedStatement.setInt(5, codice);
-
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

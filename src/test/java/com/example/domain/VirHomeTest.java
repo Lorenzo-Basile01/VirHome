@@ -189,6 +189,7 @@ class VirHomeTest {
     @Test
     void selezionaAreaCodiceNulloVuoto() {
         VirHome virHome = VirHome.getInstance();
+
         assertThrows(Exception.class, ()->{
             virHome.selezionaArea("");
         });
@@ -231,6 +232,7 @@ class VirHomeTest {
                 virHome.addObserver(String.valueOf(d.getCodiceDispositivo()));
                 assertNotNull(d.getObserver());
             }
+            //casi d'errore
             assertThrows(Exception.class, ()->{
                 virHome.addObserver("0");
             });
@@ -282,7 +284,6 @@ class VirHomeTest {
         virHome.setElencoDispositiviAttivi(Disp);
 
         assertTrue(virHome.disarmAntifurto());
-
         Array[] a = new Array[0];
         assertArrayEquals(a,virHome.getElencoDispositiviAttivi().values().toArray());
     }
@@ -291,6 +292,7 @@ class VirHomeTest {
     void removeObserver(){
         VirHome virHome = VirHome.getInstance();
         Map<String, Dispositivo> Disp = virHome.getElencoDispositiviAttivi();
+        //settiamo a null elencoDispositivi in mod tale che non ci sia alcun observer
         virHome.setElencoDispositiviAttivi(null);
         try {
             assertThrows(Exception.class,
