@@ -1,11 +1,13 @@
 package com.example.ui;
 
+import com.example.domain.Amministratore;
 import com.example.domain.VirHome;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class RegistratiFrame extends JFrame{
     private JTextField nomeField;
@@ -61,8 +63,8 @@ public class RegistratiFrame extends JFrame{
             error.setText("compilare tutti i campi");
         }
         else if(Integer.parseInt(codiceField.getText()) == Integer.parseInt(confermaCodiceField.getText()) && codiceField.getText().length() > 4){
-
-            if (virhome.addUserDatabase(nomeField.getText(), Integer.parseInt(codiceField.getText()),Integer.parseInt(confermaCodiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText())) == true) {
+            Amministratore a = new Amministratore(nomeField.getText(), Integer.parseInt(codiceField.getText()), domandaField.getText(), Integer.parseInt(telefonoField.getText()));
+            if (virhome.addUserDatabase(a)) {
                 System.out.println("registrazione avvenuta");
                 new MenuFrame(virhome);
                 setVisible(false);

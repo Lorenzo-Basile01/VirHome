@@ -1,15 +1,17 @@
 package com.example.domain;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class Database {
-
+public class AmministratoreDbDAO implements AmministratoreDAO{
     final String DB_URL = "jdbc:mysql://localhost:3306/virhome";
     final String USERNAME = "root";
-    final String PASSWORD = "12345";
+    final String PASSWORD = "0000";
     Connection con;
 
-    public Database() {
+    public AmministratoreDbDAO() {
         createConnection();
     }
 
@@ -24,15 +26,12 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
-
-    public boolean addUserDatabase(String nome, int codice, int confermaCod, String domanda, int telefono){
-        if(nome.equals("") || codice <= 9999 || codice != confermaCod){
-            return false;
-        }else {
+    @Override
+    public boolean addUserDatabase(Amministratore amministratore){
             try {
                 String query1 = "SELECT * from user where nome = ? ";
                 PreparedStatement preparedStatement1 = con.prepareStatement(query1);
-                preparedStatement1.setString(1, nome);
+                preparedStatement1.setString(1, amministratore.getNome());
                 ResultSet rs = preparedStatement1.executeQuery();
                 if (rs.next()) {
                     return false;
@@ -40,10 +39,10 @@ public class Database {
                 Statement stm = con.createStatement();
                 String query = "INSERT into user (nome, codice, domandaSicurezza, telefono)" + "values(?,?,?,?)";
                 PreparedStatement preparedStatement = con.prepareStatement(query);
-                preparedStatement.setString(1, nome);
-                preparedStatement.setInt(2, codice);
-                preparedStatement.setString(3, domanda);
-                preparedStatement.setInt(4, telefono);
+                preparedStatement.setString(1, amministratore.getNome());
+                preparedStatement.setInt(2, amministratore.getCodice());
+                preparedStatement.setString(3, amministratore.getDomanda());
+                preparedStatement.setInt(4, amministratore.getTelefono());
                 int n = preparedStatement.executeUpdate();
                 if (n > 0) {
                     return true;
@@ -52,17 +51,16 @@ public class Database {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
         return false;
     }
-    public void closeConnection(){
-        try {
-            con.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+//    public void closeConnection(){
+//        try {
+//            con.close();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+    @Override
     public boolean verifyUser(int codice, String nome){
         if(nome == null || nome.equals("")){
             return false;
@@ -90,7 +88,7 @@ public class Database {
         }
         return false;
     }
-
+    @Override
     public boolean verifyQuestion(String nome, String domanda) {
         if(nome == null || nome.equals("")){
             return false;
@@ -101,7 +99,7 @@ public class Database {
             Statement stm = con.createStatement();
             String query = "SELECT domandaSicurezza from user where nome = ? ";
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setString(1,nome);
+            preparedStatement.setString(1, nome);
             ResultSet rs = preparedStatement.executeQuery();
             if(rs.next() == true) {
                 if (rs.getString(1).equals(domanda)) {
@@ -118,20 +116,16 @@ public class Database {
         return false;
     }
 
-
-    public boolean modificaDati(String nome, int codice, int nuovoCod, String domanda, int telefono){
-        if(nome.equals("") || codice <= 9999 || nuovoCod <= 9999){
-            return false;
-        }
+    @Override
+    public boolean modificaDati(Amministratore amministratore){
         try {
             Statement stm = con.createStatement();
-            String query = "UPDATE user set codice = ?, domandaSicurezza = ?, telefono = ? where nome = ? and codice = ?";
+            String query = "UPDATE user set codice = ?, domandaSicurezza = ?, telefono = ? where nome = ?";
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setInt(1, nuovoCod);
-            preparedStatement.setString(2, domanda);
-            preparedStatement.setInt(3, telefono);
-            preparedStatement.setString(4, nome);
-            preparedStatement.setInt(5, codice);
+            preparedStatement.setInt(1, amministratore.getCodice());
+            preparedStatement.setString(2, amministratore.getDomanda());
+            preparedStatement.setInt(3, amministratore.getTelefono());
+            preparedStatement.setString(4, amministratore.getNome());
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -139,19 +133,15 @@ public class Database {
         }
         return true;
     }
+    @Override
+    public boolean rimuoviUser(Amministratore amministratore){
 
-    public boolean rimuoviUser(String nome, int codice){
-        if(nome == null || nome.equals("")) {
-            return false;
-        }else if(codice <= 9999){
-            return false;
-        }
         try {
             Statement stm = con.createStatement();
             String query = "DELETE from user where nome = ? and codice = ?";
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setString(1, nome);
-            preparedStatement.setInt(2, codice);
+            preparedStatement.setString(1, amministratore.getNome());
+            preparedStatement.setInt(2, amministratore.getCodice());
             int n = preparedStatement.executeUpdate();
             if (n > 0) {
                 return true;
@@ -161,5 +151,23 @@ public class Database {
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<Amministratore> getAllAmministratore() { // serve nell'interfaccia grafica per modifica DATI
+        String query1 = "SELECT * from user";
+        PreparedStatement preparedStatement1 = null;
+        List<Amministratore> amministratoreList = new ArrayList<>();
+        try {
+            preparedStatement1 = con.prepareStatement(query1);
+            ResultSet rs = preparedStatement1.executeQuery();
+            while (rs.next()){
+                amministratoreList.add(new Amministratore(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getInt(4)));
+            }
+            return amministratoreList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    return null;
     }
 }

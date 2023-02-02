@@ -13,11 +13,11 @@ public class VirHome {
     private AreaVigilata areaCorrente;
     private Map<String,Dispositivo> elencoDispositiviAttivi;
 
-    private Database database;
+    private AmministratoreDAO amministratoreDAO;
 
     private VirHome() {
         this.elencoAree = new HashMap<>();
-        this.database =  new Database();
+        this.amministratoreDAO =  new AmministratoreDbDAO();
         this.elencoDispositiviAttivi = new HashMap<>();
         loadAree();
     }
@@ -67,10 +67,13 @@ public class VirHome {
         System.out.println("caricamento aree completato");
     }
 
-    //ITERAZIONE 1
-    public boolean addUserDatabase(String nome, int codice, int confermaCod, String domanda, int telefono){
-        boolean a = database.addUserDatabase(nome,codice,confermaCod,domanda,telefono);
+    public boolean addUserDatabase(Amministratore amministratore){
+        boolean a = amministratoreDAO.addUserDatabase(amministratore);
         return a;
+    }
+
+    public List<Amministratore> getAllAmministratore(){
+        return amministratoreDAO.getAllAmministratore();
     }
 
     public void inserisciDispositivo(String codiceArea, char tipoDispositivo) throws Exception{
@@ -91,15 +94,14 @@ public class VirHome {
         }
     }
 
-    //ITERAZIONE 2
-
     public boolean verifyUser(int codice, String nome) throws Exception {
-        boolean a = database.verifyUser(codice,nome);
+        amministratoreDAO.getAllAmministratore();
+        boolean a = amministratoreDAO.verifyUser(codice, nome);
         return a;
     }
 
     public boolean verifyQuestion(String nome, String domanda) throws Exception {
-        return database.verifyQuestion(nome, domanda);
+        return amministratoreDAO.verifyQuestion(nome, domanda);
     }
 
     public Set<String> attivaAntifurto(){
@@ -191,12 +193,27 @@ public class VirHome {
         this.areaCorrente.annullaInserimento();
     }
 
-    public boolean modificaDati(String nome,int codice, int nuovoCod,String domanda, int telefono){
-       return database.modificaDati(nome,codice,nuovoCod,domanda, telefono);
+    public boolean modificaDati(String nome, int codice, int nuovoCod, String domanda, int telefono){
+        for(Amministratore a: amministratoreDAO.getAllAmministratore()){
+            if(a.getNome().equals(nome) && a.getCodice() == codice){
+                a.setCodice(nuovoCod);
+                a.setDomanda(domanda);
+                a.setTelefono(telefono);
+                return amministratoreDAO.modificaDati(a);
+            }
+        }
+       return false;
     }
 
     public boolean rimuoviUser(String nome, int codice){
-        return database.rimuoviUser(nome,codice);
+        for(Amministratore a: amministratoreDAO.getAllAmministratore()){
+            if(a.getNome().equals(nome) && a.getCodice() == codice){
+                boolean f = amministratoreDAO.rimuoviUser(a);
+                a = null;
+                return f;
+            }
+        }
+        return false;
     }
 
 }

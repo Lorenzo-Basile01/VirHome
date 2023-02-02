@@ -118,7 +118,7 @@
           <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Vechhio codice"/>
+          <text value="Vecchio codice"/>
         </properties>
       </component>
       <component id="7edb7" class="javax.swing.JLabel" binding="domanda">

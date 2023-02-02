@@ -108,29 +108,19 @@ class VirHomeTest {
     }
 
     @Test
-    void verifyUserTrue() {
+    void verifyUser() {
         VirHome virHome = VirHome.getInstance();
-        virHome.addUserDatabase("lorenzo1", 12345, 12345, "domanda", 323232);
+        virHome.addUserDatabase(new Amministratore("lorenzo1", 12345, "domanda", 323232));
         try {
             assertTrue(virHome.verifyUser(12345,"lorenzo1"));
+            assertFalse(virHome.verifyUser(12345,"lorenzo2"));
+            assertFalse(virHome.verifyUser(123456,"lorenzo1"));
+            assertFalse(virHome.verifyUser(123456,"lorenzo2"));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    @Test
-    void verifyUserFalse() {
-        VirHome virHome = VirHome.getInstance();
-        virHome.addUserDatabase("lorenzo1", 12345, 12345, "domanda", 323232);
-        try {
-            assertFalse(virHome.verifyUser(12345,"lorenzo2"));
-            assertFalse(virHome.verifyUser(123456,"lorenzo1"));
-            assertFalse(virHome.verifyUser(123456,"lorenzo2"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        }
-
 
     @Test
     void attivaAntifurto() {

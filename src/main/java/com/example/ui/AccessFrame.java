@@ -1,6 +1,5 @@
 package com.example.ui;
 
-import com.example.domain.Database;
 import com.example.domain.VirHome;
 
 import javax.swing.*;

@@ -75,6 +75,7 @@ public class AuthenticationFrame extends JFrame{
             domandaTextField.setEnabled(true);
             codiceTextField.setText("");
             codiceTextField.setEnabled(false);
+
             if (virHome.verifyQuestion(nometextField1.getText(), domandaTextField.getText())) {
                 new AttivationFrame(virHome);
                 setVisible(false);
